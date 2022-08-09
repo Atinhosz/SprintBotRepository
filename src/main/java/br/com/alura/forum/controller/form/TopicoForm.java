@@ -47,10 +47,9 @@ public class TopicoForm {
         return nomeCurso;
     }
 
-    public Topico converter(CursoRepository cursoRepository) {
-        Curso curso = cursoRepository.findByNome(nomeCurso);
+    public Topico converter(Curso curso) {
         return new Topico(titulo,mensagem,curso);
-
-
     }
+
+
 }

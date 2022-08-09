@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.alura.forum.controller.form.TopicoForm;
+import br.com.alura.forum.modelo.Curso;
 import br.com.alura.forum.repository.CursoRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class TopicosController {
 	@Autowired
 	private TopicoRepository topicoRepository;
 
+	@Autowired
 	private CursoRepository cursoRepository;
 
 
@@ -46,7 +48,11 @@ public class TopicosController {
 
 	@PostMapping
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder){
-       Topico topico = form.converter(cursoRepository);
+		Optional<Curso> curso = cursoRepository.findByNome(form.getNomeCurso());
+		if(!curso.isPresent()){
+			return ResponseEntity.notFound().build();
+		}
+       Topico topico = form.converter(curso.get());
 		topicoRepository.save(topico);
 
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();

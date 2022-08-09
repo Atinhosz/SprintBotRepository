@@ -18,6 +18,8 @@ public class CursoDto {
         this.categoria = curso.getCategoria();
     }
 
+
+
     public Long getId() {
         return id;
     }
@@ -30,7 +32,12 @@ public class CursoDto {
         return categoria;
     }
 
-    public static List<CursoDto> converter(List<Curso> curso) {
+    public static List<CursoDto> converterListaCurso(List<Curso> curso) {
         return curso.stream().map(CursoDto::new).collect(Collectors.toList());
     }
+
+    public static CursoDto converterCurso(Curso curso) {
+        return new CursoDto(curso);
+    }
+
 }
