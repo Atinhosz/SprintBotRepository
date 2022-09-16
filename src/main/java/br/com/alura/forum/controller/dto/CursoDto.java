@@ -9,9 +9,8 @@ public class CursoDto {
 
 
     private Long id;
-   
     private String categoria;
-
+    private String defeito;
     
     
      private String nome;
